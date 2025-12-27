@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Guntrader Stock Check</title>
+  <link rel="stylesheet" href="./css/app.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo-dot"></div>
+      <div class="brand-text">
+        <div class="brand-title">Stock Check</div>
+        <div class="brand-subtitle">Guntrader CSV • Phase 4 (Final)</div>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <input id="fileInput" type="file" accept=".csv,text/csv" hidden />
+      <button id="btnUpload" class="btn primary">⬆ Upload Guntrader CSV</button>
+      <button id="btnLowOnly" class="btn" disabled title="Show only models below alert threshold">Low stock only</button>
+      <button id="btnReset" class="btn">Reset</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <div class="card-header">
+        <h1 class="card-title">Global low-stock alerts</h1>
+        <div id="alertSourcePill" class="pill neutral">Loading…</div>
+      </div>
+      <p class="muted">
+        Low-stock thresholds are read from <code>/data/lowStockAlerts.json</code> in this GitHub repository.
+        This file is <strong>read-only in the app</strong> so everyone sees the same alerts.
+      </p>
+    </section>
+
+    <section class="browser">
+      <aside class="panel">
+        <div class="panel-head">
+          <div class="panel-title">Makes</div>
+          <div id="makePill" class="pill neutral">—</div>
+        </div>
+        <div id="makesList" class="list">
+          <div class="empty muted">Upload a CSV to view makes.</div>
+        </div>
+      </aside>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div class="panel-title">Models</div>
+          <div id="selectedMakePill" class="pill neutral">No make selected</div>
+        </div>
+        <div id="modelsList" class="models">
+          <div class="empty muted">Select a make to view models.</div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <!-- Item drill-down modal -->
+  <div id="itemModal" class="modal" hidden>
+    <div class="modal-backdrop" data-close="1"></div>
+    <div class="modal-panel">
+      <div class="modal-header">
+        <div>
+          <div id="itemModalTitle" class="modal-title">Model details</div>
+          <div id="itemModalSubtitle" class="modal-subtitle muted"></div>
+        </div>
+        <button class="btn" data-close="1">✕</button>
+      </div>
+      <div class="modal-content">
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Stock #</th>
+                <th>Serial</th>
+                <th>Calibre</th>
+              </tr>
+            </thead>
+            <tbody id="itemTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-close="1">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
